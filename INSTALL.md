@@ -5,19 +5,19 @@ Esta guía te ayudará a instalar y configurar ExpressRouter en tu proyecto de N
 ## Requisitos Previos
 
 - **Node.js**: Versión 14.0.0 o superior
-- **Express.js**: Versión 4.18.0 o superior
+- **Express.js**: Versión 4.18.0+ o 5.x
 
 ## Instalación
 
 ### 1. Instalar ExpressRouter
 
 ```bash
-npm install express-auto-router
+npm install @ljgazzano/express-auto-router
 ```
 
 ### 2. Verificar/Instalar Express.js
 
-ExpressRouter requiere Express.js como dependencia. Si no lo tienes instalado:
+ExpressRouter requiere Express.js v4.18.0+ o v5.x como dependencia. Si no lo tienes instalado:
 
 ```bash
 npm install express
@@ -41,7 +41,7 @@ Crea la estructura básica para tus rutas:
 mi-proyecto/
 ├── package.json
 ├── index.js
-└── modules/          # Directorio por defecto para rutas
+└── routes/           # Directorio por defecto para rutas
     ├── users/
     │   └── index.js
     ├── products/
@@ -55,7 +55,7 @@ Crea tu archivo principal (`index.js`):
 
 ```javascript
 import express from 'express';
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 
 const app = express();
 
@@ -75,7 +75,9 @@ app.listen(PORT, () => {
 
 ### 3. Crear tu Primer Módulo de Rutas
 
-Crea `modules/users/index.js`:
+Crea `routes/users/Users.route.js`:
+
+**Nota:** El archivo debe terminar con `.route.js` o `.route.ts`
 
 ```javascript
 import express from 'express';
@@ -113,11 +115,11 @@ export default router;
 
 ### Directorio Personalizado de Módulos
 
-Si quieres usar un directorio diferente a `modules`:
+Si quieres usar un directorio diferente a `routes`:
 
 ```javascript
 import path from 'path';
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 
 const router = await initializeAutoRouter({
   modulesPath: path.join(process.cwd(), 'src', 'routes')
@@ -129,12 +131,12 @@ const router = await initializeAutoRouter({
 ```javascript
 // API routes
 const apiRouter = await initializeAutoRouter({
-  modulesPath: './modules/api'
+  modulesPath: './routes/api'
 });
 
 // Admin routes
 const adminRouter = await initializeAutoRouter({
-  modulesPath: './modules/admin'
+  modulesPath: './routes/admin'
 });
 
 app.use('/api', apiRouter);
@@ -182,7 +184,7 @@ Asegúrate de que tu `package.json` incluya:
   },
   "dependencies": {
     "express": "^4.18.0",
-    "express-auto-router": "^1.0.0"
+    "@ljgazzano/express-auto-router": "^1.0.0"
   }
 }
 ```
@@ -210,10 +212,19 @@ npm install express
 
 1. **Directorio no existe:**
    ```bash
-   mkdir modules
+   mkdir routes
    ```
 
-2. **Archivos no exportan router:**
+2. **Archivos no exportan router o no tienen el nombre correcto:**
+
+   **Nombres de archivo válidos:**
+   - `Users.route.js` ✅
+   - `ProductCatalog.route.ts` ✅
+   - `MyAPI.route.js` ✅
+   - `index.js` ❌ (no se cargará)
+   - `users.js` ❌ (no se cargará)
+
+   **Exportación correcta:**
    ```javascript
    // Correcto
    export default router;
@@ -224,8 +235,8 @@ npm install express
 
 3. **Permisos de archivo:**
    ```bash
-   chmod 755 modules/
-   chmod 644 modules/*.js
+   chmod 755 routes/
+   chmod 644 routes/*.js
    ```
 
 ### Problemas con Paths en Windows
@@ -236,7 +247,7 @@ Si tienes problemas con rutas en Windows, usa:
 import path from 'path';
 
 const router = await initializeAutoRouter({
-  modulesPath: path.resolve(process.cwd(), 'modules')
+  modulesPath: path.resolve(process.cwd(), 'routes')
 });
 ```
 
@@ -249,7 +260,7 @@ Crea `scripts/verify-installation.js`:
 ```javascript
 #!/usr/bin/env node
 
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 import fs from 'fs';
 
 console.log('🔍 Verificando instalación de ExpressRouter...');
@@ -259,11 +270,11 @@ try {
   await import('express');
   console.log('✅ Express.js encontrado');
 
-  // Verificar directorio modules
-  if (fs.existsSync('./modules')) {
-    console.log('✅ Directorio modules existe');
+  // Verificar directorio routes
+  if (fs.existsSync('./routes')) {
+    console.log('✅ Directorio routes existe');
   } else {
-    console.log('⚠️  Directorio modules no existe - se creará automáticamente');
+    console.log('⚠️  Directorio routes no existe - se creará automáticamente');
   }
 
   // Verificar inicialización
@@ -285,7 +296,7 @@ node scripts/verify-installation.js
 
 ## Próximos Pasos
 
-1. **Crear más módulos de rutas** en el directorio `modules/`
+1. **Crear más módulos de rutas** en el directorio `routes/`
 2. **Configurar middleware** específico para tus rutas
 3. **Implementar manejo de errores** personalizado
 4. **Configurar logging** según tus necesidades

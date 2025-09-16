@@ -43,7 +43,7 @@ export async function initializeAutoRouter(options = {}) {
   }
 
   const router = createRouter(metricsTracker);
-  const modulesPath = options.modulesPath || path.join(__dirname, "..", "modules");
+  const modulesPath = options.modulesPath || path.join(process.cwd(), "routes");
 
   await writeLog('info', '='.repeat(60));
   await writeLog('info', 'AutoRouter initialization started');

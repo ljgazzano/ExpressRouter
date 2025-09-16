@@ -1,11 +1,11 @@
 # ExpressRouter
 
-Automatic route loading system for Express.js applications that automatically discovers and loads routes from your modules directory.
+Automatic route loading system for Express.js applications that automatically discovers and loads routes from your routes directory.
 
 ## Features
 
 - 🚀 Automatic route discovery and loading
-- 📁 Configurable modules directory path
+- 📁 Configurable routes directory path
 - 📝 Detailed logging and console output
 - ✅ Express.js dependency verification
 - 🎨 Beautiful console formatting with colors and banners
@@ -18,12 +18,12 @@ Automatic route loading system for Express.js applications that automatically di
 ## Installation
 
 ```bash
-npm install express-auto-router
+npm install @ljgazzano/express-auto-router
 ```
 
 ### Prerequisites
 
-This package requires Express.js as a peer dependency. If you don't have Express.js installed:
+This package requires Express.js v4.18.0+ or v5.x as a peer dependency. If you don't have Express.js installed:
 
 ```bash
 npm install express
@@ -35,11 +35,11 @@ npm install express
 
 ```javascript
 import express from 'express';
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 
 const app = express();
 
-// Initialize with default modules directory (./modules)
+// Initialize with default routes directory (./routes)
 const router = await initializeAutoRouter();
 app.use('/', router);
 
@@ -52,12 +52,12 @@ app.listen(3000, () => {
 
 ```javascript
 import express from 'express';
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 import path from 'path';
 
 const app = express();
 
-// Initialize with custom modules directory
+// Initialize with custom routes directory
 const router = await initializeAutoRouter({
   modulesPath: path.join(process.cwd(), 'api', 'routes')
 });
@@ -75,25 +75,39 @@ The `initializeAutoRouter` function accepts an options object with the following
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `modulesPath` | `string` | `"./modules"` | Path to the directory containing your route modules |
+| `modulesPath` | `string` | `"./routes"` | Path to the directory containing your route modules |
 | `enableMetrics` | `boolean` | `true` | Enable/disable usage metrics tracking |
 | `metricsLogPath` | `string` | `"Statics.ExpressRouter.log"` | Path to the metrics log file |
 
 ## Route Module Structure
 
-Your route modules should export Express router configurations. Here's an example structure:
+Your route files must end with `.route.js` or `.route.ts` to be automatically loaded. Here's an example structure:
 
 ```
-modules/
+routes/
 ├── users/
-│   ├── index.js
-│   └── profile.js
+│   ├── UsersList.route.js
+│   └── UserProfile.route.js
 ├── products/
-│   └── index.js
-└── auth.js
+│   ├── ProductCatalog.route.js
+│   └── ProductSearch.route.ts
+├── auth/
+│   ├── Login.route.js
+│   └── Register.route.ts
+└── Health.route.js
 ```
 
-Example route module (`modules/users/index.js`):
+**Important:** Only files ending with `.route.js` or `.route.ts` will be automatically loaded by ExpressRouter.
+
+**Examples of valid file names:**
+- `Users.route.js` ✅
+- `ProductCatalog.route.ts` ✅
+- `MyCustomAPI.route.js` ✅
+- `AuthRoutes.route.ts` ✅
+- `index.js` ❌ (won't be loaded)
+- `users.js` ❌ (won't be loaded)
+
+Example route module (`routes/users/UsersList.route.js`):
 
 ```javascript
 import express from 'express';
@@ -115,8 +129,8 @@ export default router;
 
 The package includes comprehensive error handling:
 
-- **Missing Express.js**: Throws an error if Express.js is not installed
-- **Invalid modules directory**: Logs warnings for inaccessible directories
+- **Missing Express.js**: Throws an error if Express.js v4.18.0+ or v5.x is not installed
+- **Invalid routes directory**: Logs warnings for inaccessible directories
 - **Route loading errors**: Detailed error reporting for failed route modules
 - **Comprehensive logging**: All activities are logged for debugging
 
@@ -145,7 +159,7 @@ ExpressRouter automatically tracks usage metrics for all routes when enabled (de
 ### Basic Metrics Usage
 
 ```javascript
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 
 // Initialize with metrics enabled (default)
 const router = await initializeAutoRouter({
@@ -208,7 +222,7 @@ Initializes the automatic router with the specified options.
 
 **Parameters:**
 - `options` (Object, optional): Configuration options
-  - `modulesPath` (string): Custom path to modules directory
+  - `modulesPath` (string): Custom path to routes directory
   - `enableMetrics` (boolean): Enable/disable metrics tracking (default: true)
   - `metricsLogPath` (string): Path to metrics log file (default: "Statics.ExpressRouter.log")
 
@@ -243,7 +257,7 @@ Removes log entries older than the specified number of days (default: 30).
 
 ```typescript
 import express from 'express';
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 
 const app = express();
 
@@ -271,21 +285,21 @@ startServer();
 
 ```javascript
 import express from 'express';
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 
 const app = express();
 
 const setupRoutes = async () => {
   // Load API routes with metrics
   const apiRouter = await initializeAutoRouter({
-    modulesPath: './modules/api',
+    modulesPath: './routes/api',
     enableMetrics: true,
     metricsLogPath: './logs/api-metrics.log'
   });
 
   // Load admin routes with separate metrics
   const adminRouter = await initializeAutoRouter({
-    modulesPath: './modules/admin',
+    modulesPath: './routes/admin',
     enableMetrics: true,
     metricsLogPath: './logs/admin-metrics.log'
   });
@@ -315,7 +329,7 @@ setupRoutes().then(() => {
 ### Scheduled Reports
 
 ```javascript
-import { initializeAutoRouter } from 'express-auto-router';
+import { initializeAutoRouter } from '@ljgazzano/express-auto-router';
 import fs from 'fs/promises';
 
 const router = await initializeAutoRouter({
@@ -350,14 +364,14 @@ If you see an error about Express.js not being found:
 
 ### Routes Not Loading
 
-1. Check that your modules directory exists and contains valid route files
-2. Ensure your route modules export Express router instances
+1. Check that your routes directory exists and contains files ending with `.route.js` or `.route.ts`
+2. Ensure your route files (ending with `.route.js` or `.route.ts`) export Express router instances
 3. Check the console output for detailed error messages
-4. Verify file permissions on the modules directory
+4. Verify file permissions on the routes directory
 
 ### Module Import Errors
 
-1. Ensure your route modules use valid ES6 module syntax
+1. Ensure your route files (`.route.js` or `.route.ts`) use valid ES6 module syntax
 2. Check for syntax errors in your route files
 3. Verify that all imported dependencies are installed
 

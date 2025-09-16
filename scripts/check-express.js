@@ -22,8 +22,9 @@ function checkExpressDependency() {
 
     const dependencies = packageJson.dependencies || {};
     const devDependencies = packageJson.devDependencies || {};
+    const peerDependencies = packageJson.peerDependencies || {};
 
-    const hasExpress = dependencies.express || devDependencies.express;
+    const hasExpress = dependencies.express || devDependencies.express || peerDependencies.express;
 
     if (!hasExpress) {
       console.error('');
@@ -41,19 +42,24 @@ function checkExpressDependency() {
       process.exit(1);
     }
 
-    try {
-      require.resolve('express');
-      console.log('✅ Express.js dependency verified');
-    } catch (error) {
-      console.error('');
-      console.error('❌ Express.js is listed in package.json but not installed');
-      console.error('');
-      console.error('Please run:');
-      console.error('  npm install');
-      console.error('  # or');
-      console.error('  yarn install');
-      console.error('');
-      process.exit(1);
+    // For peerDependencies, we don't need to check if it's installed locally
+    if (peerDependencies.express) {
+      console.log('✅ Express.js peerDependency declared - package ready for publication');
+    } else {
+      try {
+        require.resolve('express');
+        console.log('✅ Express.js dependency verified');
+      } catch (error) {
+        console.error('');
+        console.error('❌ Express.js is listed in package.json but not installed');
+        console.error('');
+        console.error('Please run:');
+        console.error('  npm install');
+        console.error('  # or');
+        console.error('  yarn install');
+        console.error('');
+        process.exit(1);
+      }
     }
 
   } catch (error) {

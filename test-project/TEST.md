@@ -35,14 +35,16 @@ test-project/
 ├── server.js              # Servidor principal con ExpressRouter
 ├── test-requests.js       # Suite de pruebas automáticas
 ├── test-metrics.log       # Archivo de métricas (se crea automáticamente)
-└── modules/               # Rutas que se cargan automáticamente
+└── routes/                # Rutas que se cargan automáticamente
     ├── users/
-    │   └── index.route.js  # CRUD de usuarios
+    │   └── Users.route.js  # CRUD de usuarios
     ├── products/
-    │   └── catalog.route.js # Catálogo de productos
+    │   └── ProductCatalog.route.js # Catálogo de productos
     ├── auth/
-    │   └── login.route.js  # Sistema de autenticación
-    └── status.route.js     # Endpoints de estado y testing
+    │   └── AuthLogin.route.js  # Sistema de autenticación
+    └── ServerStatus.route.js     # Endpoints de estado y testing
+
+**Importante:** Solo archivos terminados en `.route.js` o `.route.ts` son cargados automáticamente.
 ```
 
 ## 🧪 Pruebas Manuales
@@ -291,7 +293,8 @@ Verificar estructura de archivos:
 
 ```bash
 # Listar archivos de rutas
-find test-project/modules -name "*.route.js"
+find test-project/routes -name "*.route.js"
+find test-project/routes -name "*.route.ts"
 ```
 
 ### Requests Lentos
@@ -315,7 +318,7 @@ curl http://localhost:3000/api/status/slow?delay=100
 
 Al completar estas pruebas deberías verificar:
 
-- ✅ Carga automática de rutas desde `/modules`
+- ✅ Carga automática de rutas desde `/routes`
 - ✅ Tracking de métricas en tiempo real
 - ✅ Generación de logs en `test-metrics.log`
 - ✅ Endpoints de métricas funcionando
