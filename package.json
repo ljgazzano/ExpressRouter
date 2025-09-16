@@ -1,6 +1,6 @@
 {
   "name": "@ljgazzano/express-auto-router",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Automatic route loading system for Express.js applications",
   "main": "index.js",
   "type": "module",
