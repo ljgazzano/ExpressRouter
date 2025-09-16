@@ -22,26 +22,37 @@ class MetricsTracker {
     const startTime = Date.now();
     this.requestCount++;
 
+    const self = this;
+    let recorded = false;
+
+    const recordOnce = () => {
+      if (!recorded) {
+        recorded = true;
+        self._recordMetric(req, res, startTime);
+      }
+    };
+
     const originalSend = res.send;
     const originalJson = res.json;
     const originalEnd = res.end;
 
-    const self = this;
-
     res.send = function(data) {
-      self._recordMetric(req, res, startTime);
+      recordOnce();
       return originalSend.call(this, data);
     };
 
     res.json = function(data) {
-      self._recordMetric(req, res, startTime);
+      recordOnce();
       return originalJson.call(this, data);
     };
 
     res.end = function(data) {
-      self._recordMetric(req, res, startTime);
+      recordOnce();
       return originalEnd.call(this, data);
     };
+
+    // Also handle case where response is finished without calling send/json/end
+    res.on('finish', recordOnce);
 
     next();
   }
@@ -49,11 +60,11 @@ class MetricsTracker {
   _recordMetric(req, res, startTime) {
     const endTime = Date.now();
     const responseTime = endTime - startTime;
-    const route = req.route ? req.route.path : req.path;
+    const route = req.route ? req.route.path : (req.originalUrl || req.url || req.path);
     const method = req.method;
     const statusCode = res.statusCode;
     const userAgent = req.get('User-Agent') || 'Unknown';
-    const ip = req.ip || req.connection.remoteAddress || 'Unknown';
+    const ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || 'Unknown';
 
     const metricKey = `${method} ${route}`;
 

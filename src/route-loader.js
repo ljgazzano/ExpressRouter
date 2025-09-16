@@ -1,6 +1,7 @@
 import { Router } from "express";
 import fs from "fs/promises";
 import path from "path";
+import { pathToFileURL } from "url";
 import { writeLog } from "./logger.js";
 import { logError, logWarning, colors } from "./console-formatter.js";
 
@@ -27,7 +28,7 @@ export async function loadRoutes(folderPath, router, loadedRoutes = [], loadedRo
         await writeLog('info', `Processing route file: ${filePath}`);
 
         try {
-          const fileUrl = `file://${filePath.replace(/\\/g, '/')}`;
+          const fileUrl = pathToFileURL(filePath).href;
           const { default: _routes } = await import(fileUrl);
           if (_routes) {
             router.use("/", _routes);
