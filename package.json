@@ -1,0 +1,43 @@
+{
+  "name": "express-auto-router",
+  "version": "1.0.0",
+  "description": "Automatic route loading system for Express.js applications",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "node scripts/check-express.js"
+  },
+  "keywords": [
+    "express",
+    "router",
+    "auto-router",
+    "automatic",
+    "routes",
+    "middleware"
+  ],
+  "author": "Luis Gazzano <ljgazzano@dmenargas.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "express": "^4.18.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "index.js",
+    "src/",
+    "scripts/",
+    "README.md",
+    "INSTALL.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ljgazzano/ExpressRouter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ljgazzano/ExpressRouter/issues"
+  },
+  "homepage": "https://github.com/ljgazzano/ExpressRouter#readme"
+}

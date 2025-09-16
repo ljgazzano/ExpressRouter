@@ -1,0 +1,43 @@
+# Archivos y directorios que no se incluirán en el paquete npm
+
+# Proyecto de prueba
+test-project/
+*.log
+
+# Desarrollo
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Archivos temporales
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage y testing
+coverage/
+.nyc_output/
+
+# Archivos de documentación de desarrollo
+docs/
+examples/
+*.md.backup
+
+# Archivos de build que no son necesarios
+dist/
+build/
+temp/
+tmp/
