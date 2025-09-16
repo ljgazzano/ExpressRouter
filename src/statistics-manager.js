@@ -217,29 +217,32 @@ class StatisticsManager {
   }
 
   async displayMetricsSummary(metricsTracker) {
-    const metrics = metricsTracker.getMetrics();
+    // TODO: Fix metrics display showing zeros during initialization
+    // The metrics summary box is temporarily disabled until the initialization timing issue is resolved
 
-    console.log();
-    logInfo(`📊 ${colors.bold}Metrics Summary${colors.reset}`);
-    console.log(`${colors.gray}┌─────────────────────────────────────────┐${colors.reset}`);
-    console.log(`${colors.gray}│${colors.reset} Total Requests: ${colors.cyan}${metrics.summary.totalRequests.toString().padEnd(23)}${colors.reset}${colors.gray}│${colors.reset}`);
-    console.log(`${colors.gray}│${colors.reset} Unique Routes: ${colors.cyan}${metrics.summary.uniqueRoutes.toString().padEnd(24)}${colors.reset}${colors.gray}│${colors.reset}`);
-    console.log(`${colors.gray}│${colors.reset} Avg Req/Min: ${colors.cyan}${metrics.summary.averageRequestsPerMinute.toString().padEnd(26)}${colors.reset}${colors.gray}│${colors.reset}`);
-    console.log(`${colors.gray}│${colors.reset} Uptime: ${colors.cyan}${this._formatUptime(metrics.summary.uptime).padEnd(30)}${colors.reset}${colors.gray}│${colors.reset}`);
-    console.log(`${colors.gray}└─────────────────────────────────────────┘${colors.reset}`);
+    // const metrics = metricsTracker.getMetrics();
 
-    if (metrics.routes.length > 0) {
-      console.log();
-      logInfo(`🏆 ${colors.bold}Top 5 Routes${colors.reset}`);
-      metrics.routes.slice(0, 5).forEach((route, index) => {
-        const position = `${index + 1}.`.padEnd(3);
-        const endpoint = route.endpoint.padEnd(25);
-        const requests = route.totalRequests.toString().padStart(6);
-        const avgTime = `${route.averageResponseTime}ms`.padStart(8);
+    // console.log();
+    // logInfo(`📊 ${colors.bold}Metrics Summary${colors.reset}`);
+    // console.log(`${colors.gray}┌─────────────────────────────────────────┐${colors.reset}`);
+    // console.log(`${colors.gray}│${colors.reset} Total Requests: ${colors.cyan}${metrics.summary.totalRequests.toString().padEnd(23)}${colors.reset}${colors.gray}│${colors.reset}`);
+    // console.log(`${colors.gray}│${colors.reset} Unique Routes: ${colors.cyan}${metrics.summary.uniqueRoutes.toString().padEnd(24)}${colors.reset}${colors.gray}│${colors.reset}`);
+    // console.log(`${colors.gray}│${colors.reset} Avg Req/Min: ${colors.cyan}${metrics.summary.averageRequestsPerMinute.toString().padEnd(26)}${colors.reset}${colors.gray}│${colors.reset}`);
+    // console.log(`${colors.gray}│${colors.reset} Uptime: ${colors.cyan}${this._formatUptime(metrics.summary.uptime).padEnd(30)}${colors.reset}${colors.gray}│${colors.reset}`);
+    // console.log(`${colors.gray}└─────────────────────────────────────────┘${colors.reset}`);
 
-        console.log(`${colors.dim}${position}${colors.reset} ${colors.blue}${endpoint}${colors.reset} ${colors.green}${requests}${colors.reset} req ${colors.yellow}${avgTime}${colors.reset}`);
-      });
-    }
+    // if (metrics.routes.length > 0) {
+    //   console.log();
+    //   logInfo(`🏆 ${colors.bold}Top 5 Routes${colors.reset}`);
+    //   metrics.routes.slice(0, 5).forEach((route, index) => {
+    //     const position = `${index + 1}.`.padEnd(3);
+    //     const endpoint = route.endpoint.padEnd(25);
+    //     const requests = route.totalRequests.toString().padStart(6);
+    //     const avgTime = `${route.averageResponseTime}ms`.padStart(8);
+
+    //     console.log(`${colors.dim}${position}${colors.reset} ${colors.blue}${endpoint}${colors.reset} ${colors.green}${requests}${colors.reset} req ${colors.yellow}${avgTime}${colors.reset}`);
+    //   });
+    // }
 
     console.log();
     logSuccess(`📝 Metrics logged to: ${colors.dim}${metricsTracker.logFilePath}${colors.reset}`);

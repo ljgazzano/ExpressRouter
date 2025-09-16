@@ -1,6 +1,6 @@
 {
   "name": "@ljgazzano/express-auto-router",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Automatic route loading system for Express.js applications",
   "main": "index.js",
   "type": "module",
@@ -42,5 +42,8 @@
   "homepage": "https://github.com/ljgazzano/ExpressRouter#readme",
   "devDependencies": {
     "express": "^5.1.0"
+  },
+  "dependencies": {
+    "@ljgazzano/express-auto-router": "^1.0.2"
   }
 }
