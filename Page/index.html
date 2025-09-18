@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpressRouter - Automatic Route Loading for Express.js</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-es" class="lang-btn">ES</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-route"></i>
+                <span>ExpressRouter</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#features" data-en="Features" data-es="Características">Features</a></li>
+                <li><a href="#installation" data-en="Installation" data-es="Instalación">Installation</a></li>
+                <li><a href="#examples" data-en="Examples" data-es="Ejemplos">Examples</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span data-en="Do you want Express to automatically load your route files recursively?"
+                          data-es="¿Deseas que Express cargue de forma automática tus archivos de rutas de forma recursiva?">
+                        Do you want Express to automatically load your route files recursively?
+                    </span>
+                </h1>
+                <p class="hero-subtitle">
+                    <span data-en="This is the simplest and fastest solution..."
+                          data-es="Esta es la solución más simple y rápida...">
+                        This is the simplest and fastest solution...
+                    </span>
+                </p>
+                <p class="hero-description">
+                    <span data-en="Automatic route loading system for Express.js applications that automatically discovers and loads routes from your routes directory with built-in analytics and performance tracking."
+                          data-es="Sistema de carga automática de rutas para aplicaciones Express.js que descubre y carga automáticamente las rutas desde tu directorio de rutas con análisis integrado y seguimiento de rendimiento.">
+                        Automatic route loading system for Express.js applications that automatically discovers and loads routes from your routes directory with built-in analytics and performance tracking.
+                    </span>
+                </p>
+                <div class="hero-buttons">
+                    <a href="#installation" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        <span data-en="Get Started" data-es="Comenzar">Get Started</span>
+                    </a>
+                    <a href="#examples" class="btn btn-secondary">
+                        <i class="fas fa-code"></i>
+                        <span data-en="View Examples" data-es="Ver Ejemplos">View Examples</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-preview">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="code-title">app.js</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">import</span> <span class="variable">express</span> <span class="keyword">from</span> <span class="string">'express'</span><span class="punctuation">;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span class="variable">initializeAutoRouter</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">'@ljgazzano/express-auto-router'</span><span class="punctuation">;</span>
+
+<span class="keyword">const</span> <span class="variable">app</span> <span class="punctuation">=</span> <span class="function">express</span><span class="punctuation">();</span>
+
+<span class="comment">// Initialize with default routes directory</span>
+<span class="keyword">const</span> <span class="variable">router</span> <span class="punctuation">=</span> <span class="keyword">await</span> <span class="function">initializeAutoRouter</span><span class="punctuation">();</span>
+<span class="variable">app</span><span class="punctuation">.</span><span class="function">use</span><span class="punctuation">(</span><span class="string">'/'</span><span class="punctuation">,</span> <span class="variable">router</span><span class="punctuation">);</span>
+
+<span class="variable">app</span><span class="punctuation">.</span><span class="function">listen</span><span class="punctuation">(</span><span class="number">3000</span><span class="punctuation">);</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">
+                <span data-en="Powerful Features" data-es="Características Poderosas">Powerful Features</span>
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 data-en="Automatic Discovery" data-es="Descubrimiento Automático">Automatic Discovery</h3>
+                    <p data-en="Automatically discovers and loads routes from your routes directory without manual configuration."
+                       data-es="Descubre y carga automáticamente las rutas desde tu directorio de rutas sin configuración manual.">
+                        Automatically discovers and loads routes from your routes directory without manual configuration.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 data-en="Built-in Analytics" data-es="Análisis Integrado">Built-in Analytics</h3>
+                    <p data-en="Usage metrics, performance tracking, and detailed analytics with automatic report generation."
+                       data-es="Métricas de uso, seguimiento de rendimiento y análisis detallados con generación automática de informes.">
+                        Usage metrics, performance tracking, and detailed analytics with automatic report generation.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h3 data-en="Configurable Paths" data-es="Rutas Configurables">Configurable Paths</h3>
+                    <p data-en="Configurable routes directory path to fit your project structure perfectly."
+                       data-es="Ruta de directorio de rutas configurable para adaptarse perfectamente a la estructura de tu proyecto.">
+                        Configurable routes directory path to fit your project structure perfectly.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 data-en="Beautiful Logging" data-es="Registro Elegante">Beautiful Logging</h3>
+                    <p data-en="Detailed logging with beautiful console formatting, colors, and loading statistics."
+                       data-es="Registro detallado con formato de consola elegante, colores y estadísticas de carga.">
+                        Detailed logging with beautiful console formatting, colors, and loading statistics.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 data-en="Error Handling" data-es="Manejo de Errores">Error Handling</h3>
+                    <p data-en="Comprehensive error handling with detailed error reporting and dependency verification."
+                       data-es="Manejo integral de errores con informes detallados de errores y verificación de dependencias.">
+                        Comprehensive error handling with detailed error reporting and dependency verification.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <h3 data-en="Performance Monitoring" data-es="Monitoreo de Rendimiento">Performance Monitoring</h3>
+                    <p data-en="Real-time performance analysis with response time tracking and route popularity metrics."
+                       data-es="Análisis de rendimiento en tiempo real con seguimiento de tiempo de respuesta y métricas de popularidad de rutas.">
+                        Real-time performance analysis with response time tracking and route popularity metrics.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <h2 class="section-title">
+                <span data-en="Quick Installation" data-es="Instalación Rápida">Quick Installation</span>
+            </h2>
+            <div class="install-steps">
+                <div class="install-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 data-en="Install the Package" data-es="Instalar el Paquete">Install the Package</h3>
+                        <div class="code-block">
+                            <code>npm install @ljgazzano/express-auto-router</code>
+                            <button class="copy-btn" onclick="copyToClipboard(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="install-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 data-en="Install Express.js (if needed)" data-es="Instalar Express.js (si es necesario)">Install Express.js (if needed)</h3>
+                        <div class="code-block">
+                            <code>npm install express</code>
+                            <button class="copy-btn" onclick="copyToClipboard(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="install-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 data-en="Start Coding!" data-es="¡Empieza a Programar!">Start Coding!</h3>
+                        <p data-en="Import and initialize ExpressRouter in your application."
+                           data-es="Importa e inicializa ExpressRouter en tu aplicación.">
+                            Import and initialize ExpressRouter in your application.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Features Section -->
+    <section id="upcoming" class="upcoming-features">
+        <div class="container">
+            <h2 class="section-title">
+                <span data-en="Upcoming Features" data-es="Próximas Características">Upcoming Features</span>
+            </h2>
+            <p class="section-subtitle">
+                <span data-en="These features are being developed for the new version" data-es="Estas características se están desarrollando para la nueva versión">These features are being developed for the new version</span>
+            </p>
+            <div class="upcoming-grid">
+                <div class="upcoming-card">
+                    <div class="upcoming-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3 data-en="Dynamic Route Resolution" data-es="Resolución Dinámica de Rutas">Dynamic Route Resolution</h3>
+                    <p data-en="Advanced route mapping based on directory structure with intelligent path resolution and automatic nested route configuration."
+                       data-es="Mapeo avanzado de rutas basado en la estructura de directorios con resolución inteligente de rutas y configuración automática de rutas anidadas.">
+                        Advanced route mapping based on directory structure with intelligent path resolution and automatic nested route configuration.
+                    </p>
+                    <div class="upcoming-status">
+                        <span class="status-badge" data-en="In Development" data-es="En Desarrollo">In Development</span>
+                    </div>
+                </div>
+                <div class="upcoming-card">
+                    <div class="upcoming-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 data-en="Enhanced Analytics Dashboard" data-es="Panel de Análisis Mejorado">Enhanced Analytics Dashboard</h3>
+                    <p data-en="Advanced route consumption analytics with real-time performance monitoring, detailed usage patterns, and comprehensive reporting dashboard."
+                       data-es="Análisis avanzado de consumo de rutas con monitoreo de rendimiento en tiempo real, patrones de uso detallados y panel de informes integral.">
+                        Advanced route consumption analytics with real-time performance monitoring, detailed usage patterns, and comprehensive reporting dashboard.
+                    </p>
+                    <div class="upcoming-status">
+                        <span class="status-badge planned" data-en="Planned" data-es="Planificado">Planned</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section id="examples" class="examples">
+        <div class="container">
+            <h2 class="section-title">
+                <span data-en="Usage Examples" data-es="Ejemplos de Uso">Usage Examples</span>
+            </h2>
+            <div class="examples-tabs">
+                <button class="tab-btn active" data-tab="basic">
+                    <span data-en="Basic Usage" data-es="Uso Básico">Basic Usage</span>
+                </button>
+                <button class="tab-btn" data-tab="custom">
+                    <span data-en="Custom Directory" data-es="Directorio Personalizado">Custom Directory</span>
+                </button>
+                <button class="tab-btn" data-tab="metrics">
+                    <span data-en="With Metrics" data-es="Con Métricas">With Metrics</span>
+                </button>
+            </div>
+            <div class="tab-content active" id="basic">
+                <div class="code-example">
+                    <div class="code-header">
+                        <span>Basic Implementation</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> <span class="variable">express</span> <span class="keyword">from</span> <span class="string">'express'</span><span class="punctuation">;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span class="variable">initializeAutoRouter</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">'@ljgazzano/express-auto-router'</span><span class="punctuation">;</span>
+
+<span class="keyword">const</span> <span class="variable">app</span> <span class="punctuation">=</span> <span class="function">express</span><span class="punctuation">();</span>
+
+<span class="comment">// Initialize with default routes directory (./routes)</span>
+<span class="keyword">const</span> <span class="variable">router</span> <span class="punctuation">=</span> <span class="keyword">await</span> <span class="function">initializeAutoRouter</span><span class="punctuation">();</span>
+<span class="variable">app</span><span class="punctuation">.</span><span class="function">use</span><span class="punctuation">(</span><span class="string">'/'</span><span class="punctuation">,</span> <span class="variable">router</span><span class="punctuation">);</span>
+
+<span class="variable">app</span><span class="punctuation">.</span><span class="function">listen</span><span class="punctuation">(</span><span class="number">3000</span><span class="punctuation">,</span> <span class="punctuation">()</span> <span class="punctuation">=></span> <span class="punctuation">{</span>
+  <span class="variable">console</span><span class="punctuation">.</span><span class="function">log</span><span class="punctuation">(</span><span class="string">'Server running on port 3000'</span><span class="punctuation">);</span>
+<span class="punctuation">});</span></code></pre>
+                </div>
+            </div>
+            <div class="tab-content" id="custom">
+                <div class="code-example">
+                    <div class="code-header">
+                        <span>Custom Routes Directory</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> <span class="variable">express</span> <span class="keyword">from</span> <span class="string">'express'</span><span class="punctuation">;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span class="variable">initializeAutoRouter</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">'@ljgazzano/express-auto-router'</span><span class="punctuation">;</span>
+<span class="keyword">import</span> <span class="variable">path</span> <span class="keyword">from</span> <span class="string">'path'</span><span class="punctuation">;</span>
+
+<span class="keyword">const</span> <span class="variable">app</span> <span class="punctuation">=</span> <span class="function">express</span><span class="punctuation">();</span>
+
+<span class="comment">// Initialize with custom routes directory</span>
+<span class="keyword">const</span> <span class="variable">router</span> <span class="punctuation">=</span> <span class="keyword">await</span> <span class="function">initializeAutoRouter</span><span class="punctuation">({</span>
+  <span class="property">modulesPath</span><span class="punctuation">:</span> <span class="variable">path</span><span class="punctuation">.</span><span class="function">join</span><span class="punctuation">(</span><span class="variable">process</span><span class="punctuation">.</span><span class="function">cwd</span><span class="punctuation">(),</span> <span class="string">'api'</span><span class="punctuation">,</span> <span class="string">'routes'</span><span class="punctuation">)</span>
+<span class="punctuation">});</span>
+
+<span class="variable">app</span><span class="punctuation">.</span><span class="function">use</span><span class="punctuation">(</span><span class="string">'/api'</span><span class="punctuation">,</span> <span class="variable">router</span><span class="punctuation">);</span></code></pre>
+                </div>
+            </div>
+            <div class="tab-content" id="metrics">
+                <div class="code-example">
+                    <div class="code-header">
+                        <span>With Analytics & Metrics</span>
+                    </div>
+                    <pre><code><span class="keyword">const</span> <span class="variable">router</span> <span class="punctuation">=</span> <span class="keyword">await</span> <span class="function">initializeAutoRouter</span><span class="punctuation">({</span>
+  <span class="property">enableMetrics</span><span class="punctuation">:</span> <span class="boolean">true</span><span class="punctuation">,</span>
+  <span class="property">metricsLogPath</span><span class="punctuation">:</span> <span class="string">'./logs/api-metrics.log'</span>
+<span class="punctuation">});</span>
+
+<span class="comment">// Access metrics programmatically</span>
+<span class="keyword">const</span> <span class="variable">currentMetrics</span> <span class="punctuation">=</span> <span class="variable">router</span><span class="punctuation">.</span><span class="function">getMetrics</span><span class="punctuation">();</span>
+<span class="variable">console</span><span class="punctuation">.</span><span class="function">log</span><span class="punctuation">(</span><span class="string">'Total requests:'</span><span class="punctuation">,</span> <span class="variable">currentMetrics</span><span class="punctuation">.</span><span class="property">summary</span><span class="punctuation">.</span><span class="property">totalRequests</span><span class="punctuation">);</span>
+
+<span class="comment">// Generate detailed report</span>
+<span class="keyword">const</span> <span class="variable">report</span> <span class="punctuation">=</span> <span class="variable">router</span><span class="punctuation">.</span><span class="function">generateReport</span><span class="punctuation">();</span></code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-route"></i>
+                        <span>ExpressRouter</span>
+                    </div>
+                    <p data-en="Simplifying Express.js route management with automatic loading and built-in analytics."
+                       data-es="Simplificando la gestión de rutas de Express.js con carga automática y análisis integrado.">
+                        Simplifying Express.js route management with automatic loading and built-in analytics.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-es="Enlaces Rápidos">Quick Links</h4>
+                    <ul>
+                        <li><a href="#features" data-en="Features" data-es="Características">Features</a></li>
+                        <li><a href="#installation" data-en="Installation" data-es="Instalación">Installation</a></li>
+                        <li><a href="#examples" data-en="Examples" data-es="Ejemplos">Examples</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-en="Resources" data-es="Recursos">Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/ljgazzano/ExpressRouter" target="_blank" rel="noopener noreferrer" data-en="GitHub" data-es="GitHub">GitHub</a></li>
+                        <li><a href="https://www.npmjs.com/package/@ljgazzano/express-auto-router" target="_blank" rel="noopener noreferrer" data-en="NPM Package" data-es="Paquete NPM">NPM Package</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-en="Support" data-es="Soporte">Support</h4>
+                    <ul>
+                        <li><a href="https://github.com/ljgazzano/ExpressRouter/issues" target="_blank" rel="noopener noreferrer" data-en="Issues" data-es="Problemas">Issues</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-signature">
+                    <p>&copy; 2024 ExpressRouter. MIT License.</p>
+                    <div class="developer-signature">
+                        <span data-en="Developed by" data-es="Desarrollado por">Developed by</span>
+                        <a href="https://gravatar.com/pleasantlyprofound9a541d7fd0" target="_blank" rel="noopener noreferrer" class="developer-link">
+                            <img src="https://gravatar.com/avatar/pleasantlyprofound9a541d7fd0?s=32" alt="Developer Avatar" class="developer-avatar">
+                            <span>@ljgazzano</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
